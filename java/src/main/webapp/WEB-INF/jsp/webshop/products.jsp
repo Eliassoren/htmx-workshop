@@ -32,10 +32,10 @@
 
                 </div>
                 <div class="product-addtobasket">
-                    <form method="post" action="/webshop/add-to-cart-full-reload">
+                    <form>
                         <input type="hidden" name="productId" value="${product.id}">
 
-                        <button class="btn btn-primary mt-4">
+                        <button class="btn btn-primary mt-4" hx-post="/webshop/add-to-cart">
                             <i class="bi bi-cart-plus"></i>
                             Add to cart
                         </button>

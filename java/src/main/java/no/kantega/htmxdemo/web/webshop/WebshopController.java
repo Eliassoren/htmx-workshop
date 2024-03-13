@@ -43,8 +43,9 @@ public class WebshopController {
     }
 
     @GetMapping("search")
-    public ModelAndView search(@RequestParam("q") String q) {
+    public ModelAndView search(@RequestParam("q") String q, HttpServletResponse response) {
         List<Product> products = productRepository.findByName(q);
+        response.setHeader("HX-Trigger", "search");
         return new ModelAndView("/webshop/products")
                 .addObject("products", products);
     }
@@ -58,7 +59,7 @@ public class WebshopController {
 
         cart.addProduct(product);
         inventoryRepository.reduceStock(product, 1);
-
+        response.setHeader("HX-Trigger", "cart-updated");
         return new ModelAndView("/webshop/add-to-cart-success")
                 .addObject("product", product);
     }
@@ -81,7 +82,8 @@ public class WebshopController {
 
         cart.removeProduct(product);
         inventoryRepository.increaseStock(product, 1);
-
+        response.setHeader("HX-Trigger", "cart-updated");
+        response.setHeader("HX-Trigger", "removed-item");
         //TODO: Add HX-Trigger http header to trigger cart reload and inventory update
     }
 

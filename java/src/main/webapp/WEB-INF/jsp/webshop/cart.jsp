@@ -16,7 +16,7 @@
                 <th class="text-end">Sum</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody >
 
             <c:forEach var="item" items="${cart.items}">
                 <tr>
@@ -24,9 +24,9 @@
                     <td class="text-end">${item.quantity}</td>
                     <td class="text-end"><fmt:formatNumber value="${item.sum}" type="currency"/></td>
                     <td>
-                        <form action="/webshop/remove-from-cart-full-reload" method="post">
+                        <form>
                             <input type="hidden" name="productId" value="${item.product.id}">
-                            <button class="btn btn-sm btn-outline-danger">Remove</button>
+                            <button hx-post="/webshop/remove-from-cart" class="btn btn-sm btn-outline-danger">Remove</button>
                         </form>
                     </td>
                 </tr>
